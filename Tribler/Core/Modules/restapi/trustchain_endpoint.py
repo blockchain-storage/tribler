@@ -4,7 +4,6 @@ from twisted.web import http, resource
 
 from Tribler.community.triblerchain.community import TriblerChainCommunity
 
-
 class TrustchainEndpoint(resource.Resource):
     """
     This endpoint is responsible for handing requests for trustchain data.
@@ -226,7 +225,9 @@ class TrustchainBootstrapEndpoint(TrustchainBaseEndpoint):
                 down = int(request.args['down'][0])
             except ValueError:
                 down = down
-
+                
+        result = mc_community.bootstrap_new_identity(up,down)
+        tmp = """"
         return json.dumps(  {
                     "private_key" : "NEW_KEY",
                     "public_key"  : "NEW_PUBLIC_KEY" ,
@@ -248,3 +249,8 @@ class TrustchainBootstrapEndpoint(TrustchainBaseEndpoint):
                
                     })
 
+            """
+
+
+        return json.dumps( result )
+       
